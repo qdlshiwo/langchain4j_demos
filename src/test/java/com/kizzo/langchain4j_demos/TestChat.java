@@ -1,9 +1,12 @@
 package com.kizzo.langchain4j_demos;
 
 import dev.langchain4j.community.model.dashscope.QwenChatModel;
+import dev.langchain4j.community.model.dashscope.WanxImageModel;
+import dev.langchain4j.data.image.Image;
 import dev.langchain4j.model.chat.ChatLanguageModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.openai.OpenAiChatModel;
+import dev.langchain4j.model.output.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
@@ -50,6 +53,15 @@ public class TestChat {
                 .build();
         String answer = model.chat("你好你是谁？");
         log.info(answer);
+    }
+    @Test
+    void testWangxiangChat(){
+        WanxImageModel model = WanxImageModel.builder()
+                .apiKey(ApiKeys.QWEN_API_KEY)
+                .modelName("wanx2.1-t2i-turbo")
+                .build();
+        Response<Image> response = model.generate("守望先锋");
+        System.out.println(response.content().url());
     }
 
 
